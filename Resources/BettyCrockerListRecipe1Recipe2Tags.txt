@@ -1,0 +1,179 @@
+///*********************************************************************************************************************************************** 
+// When saving wal-mart data here is what we need to document:
+// The first line is the recipe line item.  Save it so we know what the tag is that we are going to associate with that recipe ingredient 
+// The next line is the Tag name  
+// The next 2 or 3 lines after that are the brand/itemId for an option that a user could select for that recipe ingredient
+///**********************************************************************************************************************************************
+// Here is the process to follow when creating a file:
+//   Pick out your recipe(s)
+//   Make a new Text file - include the recipe names at the top and their url
+//   In the text file, copy the recipe ingredient lists 
+//   Manipulate your list so that if you have more than one recipe, like items are combined together (Line 1, 2, etc).
+//   Next, go to the walmart.com site and search for a name that matches that ingredient
+//   Find 2-3 options for that ingredient and get the ItemId for them by doing the following:
+//       in the list of items that show up matching your search, select an item to show its details
+//       the url will have an 8 digit number that is the item id - for example
+//       https://www.walmart.com/ip/McCormick-Ground-Paprika-2-12-Oz/10535031 - the 10535031 is the itemID
+//       that means you will want to select details and get item ids for 2-3 items
+//   For each walmart item, list a short name and the item id (example Creamette 24529496)
+//   Insert a tag name after the recipe ingredient line (for example  tag = Fettucine) 
+//   
+//   We need to do this so that we know what tag to associate with a recipe ingredient, and so we can define the 
+//   necessary tags in our system to match ingredients to store items
+
+
+Betty Crocker Recipes 1 & 2
+
+Fettuccine or other favorite pasta, cooked according to package directions
+Tag = Fettuccine
+Creamette 24529496
+Barilla 10309187
+Organic Spinach 30962481
+
+
+1 to 2 cups fresh chopped broccoli, cooked and hot
+Tag = Broccoli
+MarketSide in bag 13399617
+larger MarketSide bag 51259389
+frozen Great Value 51259389
+
+1/2 cup (1 stick) butter
+cup butter
+Tag = Butter 
+great value salted 10315052
+land o lakes salted 10291058
+land o lakes unsalted 10291059
+great value unsalted 10291058
+
+1/2 teaspoon (1 clove) minced garlic
+Tag = Minced Garlic
+McCormick wet 10308898
+DelAllo 32576181
+McCormick dry 10535032
+
+
+1/8 teaspoon garlic powder
+Tag = Garlic Powder
+Great Value 10315287
+Lawry's 138905992
+McCormick 54953042
+
+1/8 teaspoon ground black pepper
+1/4 teaspoon pepper
+Tag = Pepper
+McCormick 44981960
+Great Value 44662573
+Salt & Pepper combo 25120110
+
+1/2 teaspoon salt
+Tag = Salt
+Large Iodized 10448936
+Salt & Pepper combo 25120110
+
+2 cups heavy cream
+Tag = Heavy Cream
+great value 10450339
+Land o Lakes 15556068
+
+<Leslie Started>
+
+1/4 cup freshly grated PARMESAN cheese
+Tag = Parmesan cheese
+
+Kraft  15716473
+
+Great Value 19400150
+4
+4c 10307387
+
+
+2 to 3 cooked CHICKEN breasts, diced 
+
+2 1/2 to 3 cups cut-up cooked chicken or turkey
+Tag = Chicken 
+
+Tyson 15240648
+
+Valley Fresh 108679391
+
+Great Value 10315929
+
+
+1/3 cup all-purpose FLOUR
+Tag = Flour
+
+Gold Medal 10311311
+
+Great Value 19802852
+
+King Arthur 10535106
+
+
+1/3 cup chopped ONION
+
+Tag = Onions 
+3lb  10447842
+5
+5 lb 107507562
+
+3/4 cups chicken BROTH
+tag = chicken broth 
+
+Swanson 10449231
+
+Great Value 44391066 
+
+College Inn 10295249
+
+
+
+2/3 cup MILK
+tag = milk
+
+Great Value 2% 10450119
+
+Great Value Whole 10450114 
+
+LaLa Box 54082912
+1 
+
+box frozen peas & carrots
+tag = frozen peas & carrots
+
+Great Value 39080798
+
+Goya 49913338
+
+El Sembrador 21128460
+
+
+
+1 package (15 oz) refrigerated pie crusts, softened as directed on box Get Ingredients Powered by Chicory
+tag = refrigerated pie crust
+Pillsbury 16504401
+Great Value 11047612
+
+ 
+Tag = Fetuccine
+Tag = Broccoli
+Tag = Broccoli
+Tag = Butter 
+Tag = Minced Garlic
+Tag = Garlic Powder
+Tag = Pepper
+Tag = Salt
+Tag = Heavy Cream
+Tag = Parmesan cheese
+
+Tag = Chicken 
+
+Tag = Flour
+
+Tag = Onions 
+tag = chicken broth 
+
+tag = milk
+
+tag = frozen peas & carrots
+
+tag = refrigerated pie crust
