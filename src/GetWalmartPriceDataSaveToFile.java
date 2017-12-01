@@ -35,7 +35,7 @@ public class GetWalmartPriceDataSaveToFile {
 	public static void main(String[] args) {
 
 		String basePath = new File("").getAbsolutePath();
-		basePath += "/Resources";
+		basePath += "/Resources/walmart-input";
 		System.out.println(basePath);
 
 		String inputFileName = "C:/Users/WeCanCodeIT/wcci/default-workspace/ApacheHTTPRestClient/src/testinputidfile.txt";
