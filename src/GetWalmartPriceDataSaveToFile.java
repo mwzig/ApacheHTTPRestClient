@@ -2,6 +2,7 @@
 //here is how to read it from a file
 //https://www.mkyong.com/java/json-simple-example-read-and-write-json/
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -19,30 +20,33 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 /**
- * A simple Java REST GET example using the Apache HTTP library. This executes a
- * call against the Yahoo Weather API service, which is actually an RSS service
- * (http://developer.yahoo.com/weather/).
- * 
- * Try this Twitter API URL for another example (it returns JSON results):
- * http://search.twitter.com/search.json?q=%40apple (see this url for more
- * twitter info: https://dev.twitter.com/docs/using-search)
- * 
- * Apache HttpClient: http://hc.apache.org/httpclient-3.x/
+ * The initial logic was copied from a StackOverflow site search for Apache
+ * HttpClient: http://hc.apache.org/httpclient-3.x/
+ *
+ * This code reads in a file that has comma separated values xxx,xxxxxxxx,xxx
+ * The characters before the 1st comma are the groceryApp tag id. The characters
+ * between the commas are the Walmart ItemId The characters after the 2nd comma
+ * are the price that we find manually if we know that Walmart's json data does
+ * not contain a price
  *
  */
 public class GetWalmartPriceDataSaveToFile {
 
 	public static void main(String[] args) {
 
+		String basePath = new File("").getAbsolutePath();
+		basePath += "/Resources";
+		System.out.println(basePath);
+
 		String inputFileName = "C:/Users/WeCanCodeIT/wcci/default-workspace/ApacheHTTPRestClient/src/testinputidfile.txt";
-		ArrayList<String> productIdList = new ArrayList<String>();
+		ArrayList<String> tagProductIdPriceList = new ArrayList<String>();
 
 		try {
 			FileReader fr = new FileReader(inputFileName);
 			BufferedReader br = new BufferedReader(fr);
 			String s;
 			while ((s = br.readLine()) != null) {
-				productIdList.add(s);
+				tagProductIdPriceList.add(s);
 				System.out.println(s);
 			}
 			fr.close();
@@ -50,19 +54,25 @@ public class GetWalmartPriceDataSaveToFile {
 			e.printStackTrace();
 		}
 
-		String url = "http://www.google.com/search?q=httpClient";
-		String url2 = "http://api.walmartlabs.com/v1/items/16213260?format=json&apiKey=r8tk9fjzba6cekkc65qp69xy";
-		String url3PartA = "http://api.walmartlabs.com/v1/items/";
-		String url3PartB = "?format=json&apiKey=r8tk9fjzba6cekkc65qp69xy";
+		// String url2 =
+		// "http://api.walmartlabs.com/v1/items/16213260?format=json&apiKey=r8tk9fjzba6cekkc65qp69xy";
+		String urlPartA = "http://api.walmartlabs.com/v1/items/";
+		String urlPartB = "?format=json&apiKey=r8tk9fjzba6cekkc65qp69xy";
 
-		for (String productId : productIdList) {
-			String urlWithProductId = url3PartA + productId + url3PartB;
-			callWalmartProductAPI(urlWithProductId, productId);
+		for (String tagProductIdPrice : tagProductIdPriceList) {
+			int firstCommaLoc = tagProductIdPrice.indexOf(',');
+			int secondCommaLoc = tagProductIdPrice.indexOf(',', firstCommaLoc + 1);
+			String tag = tagProductIdPrice.substring(0, firstCommaLoc);
+			String productId = tagProductIdPrice.substring(firstCommaLoc + 1, secondCommaLoc);
+			String price = tagProductIdPrice.substring(secondCommaLoc + 1);
+			String urlWithProductId = urlPartA + productId + urlPartB;
+			callWalmartProductAPI(urlWithProductId, productId, tag, price, basePath);
 		}
 
 	}
 
-	public static void callWalmartProductAPI(String url, String productId) {
+	public static void callWalmartProductAPI(String url, String productId, String tag, String price, String basePath) {
+
 		HttpClient httpclient = HttpClientBuilder.create().build();
 		HttpGet request = new HttpGet(url);
 
@@ -92,15 +102,15 @@ public class GetWalmartPriceDataSaveToFile {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			// parsing JSON
 		}
+
 		JSONParser parser = new JSONParser();
 
 		Object obj = null;
 		try {
-			// obj = parser.parse(EntityUtils.toString(entity));
 			obj = parser.parse(retSrc);
-			((JSONObject) obj).put("groceryAppTagId", "001");
+			((JSONObject) obj).put("groceryAppTagId", tag);
+			((JSONObject) obj).put("groceryAppPrice", price);
 		} catch (ParseException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -108,8 +118,9 @@ public class GetWalmartPriceDataSaveToFile {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+
 		try {
-			String outputFileNamePartA = "C:/Users/WeCanCodeIT/wcci/default-workspace/ApacheHTTPRestClient/src/wmpriceitem";
+			String outputFileNamePartA = basePath + "/wmpriceitem";
 			String outputFileNamePartB = ".txt";
 			String outputFileName = outputFileNamePartA + productId + outputFileNamePartB;
 			FileWriter file = new FileWriter(outputFileName);
