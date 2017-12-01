@@ -154,26 +154,25 @@ Pillsbury 16504401
 Great Value 11047612
 
  
-Tag = Fetuccine
-Tag = Broccoli
-Tag = Broccoli
-Tag = Butter 
-Tag = Minced Garlic
-Tag = Garlic Powder
-Tag = Pepper
-Tag = Salt
-Tag = Heavy Cream
-Tag = Parmesan cheese
+Tag001 = Fettuccine
+Tag002 = Broccoli
+Tag003 = Butter 
+Tag004 = Minced Garlic
+Tag005 = Garlic Powder
+Tag006 = Pepper
+Tag007 = Salt
+Tag008 = Heavy Cream
+Tag009 = Parmesan cheese
 
-Tag = Chicken 
+Tag010 = Chicken 
 
-Tag = Flour
+Tag011 = Flour
 
-Tag = Onions 
-tag = chicken broth 
+Tag012 = Onions 
+tag013 = chicken broth 
 
-tag = milk
+tag014 = milk
 
-tag = frozen peas & carrots
+tag015 = frozen peas & carrots
 
-tag = refrigerated pie crust
+tag016 = refrigerated pie crust
