@@ -20,7 +20,9 @@
 //   
 //   We need to do this so that we know what tag to associate with a recipe ingredient, and so we can define the 
 //   necessary tags in our system to match ingredients to store items
-
+// 
+// Explain about out how to use Leslie's spreadsheet file for input, and checking to see if the json has a price, and if not looking up the price
+// and then jotting down the price
 
 Betty Crocker Recipes 1 & 2
 

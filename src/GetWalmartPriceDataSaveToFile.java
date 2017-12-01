@@ -15,6 +15,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
+import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 /**
@@ -99,7 +100,7 @@ public class GetWalmartPriceDataSaveToFile {
 		try {
 			// obj = parser.parse(EntityUtils.toString(entity));
 			obj = parser.parse(retSrc);
-
+			((JSONObject) obj).put("groceryAppTagId", "001");
 		} catch (ParseException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
