@@ -38,7 +38,9 @@ public class GetWalmartPriceDataSaveToFile {
 		basePath += "/Resources/walmart-input";
 		System.out.println(basePath);
 
-		String inputFileName = "C:/Users/WeCanCodeIT/wcci/default-workspace/ApacheHTTPRestClient/src/testinputidfile.txt";
+		// String inputFileName =
+		// "C:/Users/WeCanCodeIT/wcci/default-workspace/ApacheHTTPRestClient/src/testinputidfile.txt";
+		String inputFileName = "C:/Users/WeCanCodeIT/wcci/default-workspace/ApacheHTTPRestClient/src/MaryAndLeslieRecipeItemIdsAndPricesWithTags.csv";
 		ArrayList<String> tagProductIdPriceList = new ArrayList<String>();
 
 		try {
@@ -110,7 +112,9 @@ public class GetWalmartPriceDataSaveToFile {
 		try {
 			obj = parser.parse(retSrc);
 			((JSONObject) obj).put("groceryAppTagId", tag);
-			((JSONObject) obj).put("groceryAppPrice", price);
+			if (!price.isEmpty()) {
+				((JSONObject) obj).put("groceryAppPrice", price);
+			}
 		} catch (ParseException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
