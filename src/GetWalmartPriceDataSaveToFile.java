@@ -34,12 +34,13 @@ public class GetWalmartPriceDataSaveToFile {
 
 	public static void main(String[] args) {
 
+		// Figure out where we will write the output JSON files:
 		String basePath = new File("").getAbsolutePath();
 		basePath += "/Resources/walmart-input";
 		System.out.println(basePath);
 
-		// String inputFileName =
-		// "C:/Users/WeCanCodeIT/wcci/default-workspace/ApacheHTTPRestClient/src/testinputidfile.txt";
+		// Now read in the input csv file. We will read the data on
+		// each line into an arraylist and parse thru it later
 		String inputFileName = "C:/Users/WeCanCodeIT/wcci/default-workspace/ApacheHTTPRestClient/src/MaryAndLeslieRecipeItemIdsAndPricesWithTags.csv";
 		ArrayList<String> tagProductIdPriceList = new ArrayList<String>();
 
@@ -55,6 +56,16 @@ public class GetWalmartPriceDataSaveToFile {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
+		// Now, for each item in the arraylist, there is a Walmart itemid
+		// We need to call the Walmart Lookup API to get data (in JSON format)
+		// about that item. We will write out that JSON data to a file
+		// for each item id. Another program will use it to update
+		// our Store Item data.
+		// We've strung together a tag id, an item id, and potentially a
+		// price (if we know the json data is missing a price).
+		// Parse out that data from the arraylist entry and pass it
+		// to the callWalmartProductAPI function
 
 		// String url2 =
 		// "http://api.walmartlabs.com/v1/items/16213260?format=json&apiKey=r8tk9fjzba6cekkc65qp69xy";
@@ -89,25 +100,31 @@ public class GetWalmartPriceDataSaveToFile {
 			e1.printStackTrace();
 		}
 
-		System.out.println("Response Code : " + response.getStatusLine().getStatusCode());
+		if (response.getStatusLine().getStatusCode() != 200) {
+			System.out.println("Response Code : " + response.getStatusLine().getStatusCode());
+		}
+
 		HttpEntity entity = response.getEntity();
 
 		String retSrc = null;
 		if (entity != null) {
 			try {
 				retSrc = EntityUtils.toString(entity);
-				System.out.println(retSrc);
+				// System.out.println(retSrc);
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 
 		JSONParser parser = new JSONParser();
 
+		// Use the tag id from the input csv file to add a JSON
+		// key/value pair to our output with the tag
+		// If there is a price in the csv, add it to the output JSON too.
+		// Notice that we name our JSON fields that we add with "groceryApp"
+		// to uniquely identify them as coming from our app and not Walmart's.
 		Object obj = null;
 		try {
 			obj = parser.parse(retSrc);
@@ -116,10 +133,8 @@ public class GetWalmartPriceDataSaveToFile {
 				((JSONObject) obj).put("groceryAppPrice", price);
 			}
 		} catch (ParseException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} catch (org.json.simple.parser.ParseException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 
@@ -130,12 +145,14 @@ public class GetWalmartPriceDataSaveToFile {
 			FileWriter file = new FileWriter(outputFileName);
 			file.write(obj.toString());
 			file.flush();
-			System.out.println("Successfully Copied JSON Object to File...");
-			System.out.println("\nJSON Object: " + obj);
+			// System.out.println("Successfully Copied JSON Object to File...");
+			// System.out.println("\nJSON Object: " + obj);
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
 	}
+
+	// Save below in case we want to add it back for debugging at some point.
 	/*
 	 * JSONObject jsonObject = (JSONObject) obj; System.out.println(jsonObject);
 	 * 
